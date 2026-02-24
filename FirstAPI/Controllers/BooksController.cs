@@ -1,6 +1,8 @@
-﻿using FirstAPI.Models;
+﻿using FirstAPI.Data;
+using FirstAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstAPI.Controllers
 {
@@ -8,40 +10,31 @@ namespace FirstAPI.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private static List<Book> books = new List<Book>
+        private readonly FirstAPIContext _context;
+        public BooksController(FirstAPIContext context)
         {
-            new Book
-            {
-                Id=1,
-                Title= "Hoo",
-                Author= "Tuan Duy",
-                YearPublished= 2026,
-            },
-            new Book
-            {
-                Id=2,
-                Title= "Hoo2",
-                Author= "Tuan Duy2",
-                YearPublished= 2027,
-            }
-        };
+            _context = context;
+        }
+
+
         [HttpGet]
-        public ActionResult<List<Book>> GetBook()
+        public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            return Ok(books);
+            return Ok(await _context.Books.ToListAsync());
         }
         [HttpGet("{id}")]
-        public ActionResult<Book> GetBookById(int id)
+        public async Task<ActionResult<Book>> GetBookById(int id)
         {
-            var book = books.FirstOrDefault(x => x.Id == id);
+            var book = await _context.Books.FindAsync(id);
             if (book == null) return NotFound();
             return Ok(book);
         }
         [HttpPost]
-        public ActionResult<Book> AddBook(Book newBook)
+        public async Task<ActionResult<Book>> AddBook(Book newBook)
         {
             if (newBook == null) return BadRequest();
-            books.Add(newBook);
+             _context.Books.Add(newBook);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
             //Hàm này nó sẽ trả về kết quả HTTP 201 Created.
             /*
@@ -50,30 +43,42 @@ namespace FirstAPI.Controllers
                 new { id = newBook.Id },       // 2. Tham số truyền vào hàm đó (để tạo ra URL)
                 newBook                        // 3. Dữ liệu thực tế trả về cho người dùng
             );
+            nameof(GetBookById): Đây là tên hàm dùng để "xem chi tiết". Khi bạn dùng nameof, 
+            nếu sau này bạn đổi tên hàm, Visual Studio sẽ tự động cập nhật giúp bạn, tránh bị lỗi gõ sai chữ.
+
+            new { id = newBook.Id }: Đây là giá trị truyền vào hàm xem chi tiết.
+            Bạn lưu ý là ở bước này, newBook.Id đã có giá trị (do SQL Server vừa gán sau lệnh SaveChangesAsync).
+
+            newBook: Trả lại toàn bộ nội dung cuốn sách dưới dạng JSON trong phần thân (Body) của kết quả. 
+            Điều này giúp Client biết được các thông tin khác (như ID) mà không cần phải gọi thêm một lệnh GET nữa.
              */
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, Book updatedBook)
+        public async Task<IActionResult> UpdateBook(int id, Book updatedBook)
         {
             //Dùng IActionResult là vì nó chỉ trả về status code, không trả về data
             //Tim book co id do
-            var book = books.FirstOrDefault(x => x.Id == id);
+            var book = await _context.Books.FindAsync(id);
             if (book == null) return BadRequest();
             //Tien hanh cap nhat book[id]
-            book.Id = updatedBook.Id;
+            //book.Id = updatedBook.Id; do Id là key không đổi được nên bỏ dòng này
             book.Title = updatedBook.Title;
             book.Author = updatedBook.Author;
             book.YearPublished = updatedBook.YearPublished;
 
+            await _context.SaveChangesAsync();
             return NoContent(); //khong tra ve data, chi tra status code 204
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteBook(int id)
+        public async Task<IActionResult> DeleteBook(int id)
         {
-            var book = books.FirstOrDefault(x => x.Id == id);
+            var book = _context.Books.Find(id);
             if (book == null) return BadRequest();
-            books.Remove(book);
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
+
+
     }
 }

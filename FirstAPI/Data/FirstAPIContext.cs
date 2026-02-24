@@ -11,6 +11,26 @@ namespace FirstAPI.Data
                              * */
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Book>().HasData(
+                 new Book
+                 {
+                     Id = 1,
+                     Title = "Hoo",
+                     Author = "Tuan Duy",
+                     YearPublished = 2026,
+                 },
+            new Book
+            {
+                Id = 2,
+                Title = "Hoo2",
+                Author = "Tuan Duy2",
+                YearPublished = 2027,
+            }
+            );
+        }
 
         // Khai báo các bảng dữ liệu
         public DbSet<Book> Books { get; set; }
