@@ -3,6 +3,7 @@ using FirstAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstAPI.Migrations
 {
     [DbContext(typeof(FirstAPIContext))]
-    partial class FirstAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20260224093557_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,22 +46,6 @@ namespace FirstAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Author = "Tuan Duy",
-                            Title = "Hoo",
-                            YearPublished = 2026
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Author = "Tuan Duy2",
-                            Title = "Hoo2",
-                            YearPublished = 2027
-                        });
                 });
 #pragma warning restore 612, 618
         }

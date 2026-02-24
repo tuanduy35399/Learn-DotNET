@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstAPI.Migrations
 {
     [DbContext(typeof(FirstAPIContext))]
-    [Migration("20260223233729_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260224094807_book data added")]
+    partial class bookdataadded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,22 @@ namespace FirstAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Tuan Duy",
+                            Title = "Hoo",
+                            YearPublished = 2026
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Tuan Duy2",
+                            Title = "Hoo2",
+                            YearPublished = 2027
+                        });
                 });
 #pragma warning restore 612, 618
         }
