@@ -34,5 +34,6 @@ namespace FirstAPI.Data
 
         // Khai báo các bảng dữ liệu
         public DbSet<Book> Books { get; set; }
+        
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstAPI.Controllers
-{
+
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase

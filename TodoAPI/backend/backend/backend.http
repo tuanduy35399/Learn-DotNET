@@ -1,0 +1,9 @@
+@URL = http://localhost:5071
+
+GET {{URL}}/weatherforecast/
+Accept: application/json
+
+###
+GET {{URL}}/api/task/
+Accept: application/json
+
