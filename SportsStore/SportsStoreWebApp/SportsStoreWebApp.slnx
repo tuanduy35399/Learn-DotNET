@@ -1,4 +1,0 @@
-<Solution>
-  <Project Path="SportsStore.Domain/SportsStore.Domain.csproj" Id="f303c264-cd44-4d19-9094-dda6846e359c" />
-  <Project Path="SportsStoreWebApp/SportsStoreWebApp.csproj" />
-</Solution>
