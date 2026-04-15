@@ -10,10 +10,19 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsProduction()) //nếu khác dev hoặc staging thì không cho xài swagger
+    //Bảo vệ kép 
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    if(app.Configuration.GetValue<bool>("UseSwagger"))
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+        
+}
+
+if (app.Configuration.GetValue<bool>("UseDevelopertExceptionPage"))
+{
     app.UseDeveloperExceptionPage();
 }
 else
@@ -25,7 +34,7 @@ app.MapGet("/error", () => Results.Problem());
 //    throw new Exception("test"); 
 //});
 app.MapGet("/error/test", () => { throw new Exception("test"); });
-app.UseWelcomePage();
+//app.UseWelcomePage();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
