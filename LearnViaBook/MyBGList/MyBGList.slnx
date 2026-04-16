@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../MyBGList_ApiVersion/MyBGList_ApiVersion.csproj" Id="9e056b0b-bfe6-4df2-8bdb-7c9aef473d39" />
   <Project Path="MyBGList.csproj" />
 </Solution>
