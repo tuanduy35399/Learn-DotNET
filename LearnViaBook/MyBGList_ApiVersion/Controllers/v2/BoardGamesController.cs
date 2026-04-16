@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using MyBGList_ApiVersion.DTO.v2;
 using System.Xml.Linq;
 
@@ -9,6 +8,7 @@ namespace MyBGList_ApiVersion.Controllers.v2
     [Route("/v{version:ApiVersion}/[controller]")] //endpoint là tên của Controller bỏ đi cụm Controller => /BoardGames
     [ApiController]
     [ApiVersion("2.0")]
+    [ResponseCache(Duration= 120, Location=ResponseCacheLocation.Client)]
     public class BoardGamesController : ControllerBase
     {
         private readonly ILogger<BoardGamesController> _logger;

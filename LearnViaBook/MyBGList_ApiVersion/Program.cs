@@ -27,12 +27,20 @@ builder.Services.AddCors(opt =>
         cfg.AllowAnyMethod();
     });
     opt.AddPolicy(name: "AnyOrigin", //tạo 1 policy custom 
-    cfg =>
-    {
-        cfg.AllowAnyOrigin();
-        cfg.AllowAnyHeader();
-        cfg.AllowAnyMethod();
-    });
+        cfg =>
+        {
+            cfg.AllowAnyOrigin();
+            cfg.AllowAnyHeader();
+            cfg.AllowAnyMethod();
+        });
+    opt.AddPolicy(name: "AnyOrigin_GetOnly",
+        cfg =>
+        {
+            cfg.AllowAnyOrigin();
+            cfg.AllowAnyHeader();
+            cfg.WithMethods("GET");
+        }
+        );
 });
 builder.Services.AddApiVersioning(opt =>
 {
@@ -125,6 +133,7 @@ if (!app.Environment.IsProduction()) //nếu khác dev hoặc staging thì khôn
     //sách cho tất cả endpoint 
     //app.MapControllers().RequireCors("AnyOrigin");
     //[EnableCors] xử lý preflight tốt hơn -> ta sẽ ưu tiên dùng
+    app.MapGet("/get-only", [EnableCors("AnyOrigin_GetOnly")] () => "mày chỉ có thể get thôi");
     app.UseHttpsRedirection();
 
     app.UseCors();

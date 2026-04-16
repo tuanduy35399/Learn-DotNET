@@ -8,6 +8,7 @@ namespace MyBGList_ApiVersion.Controllers.v1
     [Route("/v{version:ApiVersion}/[controller]")] //endpoint là tên của Controller bỏ đi cụm Controller => /BoardGames
     [ApiController]
     [ApiVersion("1.0")]
+    [ResponseCache(NoStore=true)]
     public class BoardGamesController : ControllerBase
     {
         private readonly ILogger<BoardGamesController> _logger;
