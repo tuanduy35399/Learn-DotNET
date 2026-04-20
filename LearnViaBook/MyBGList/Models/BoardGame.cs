@@ -8,42 +8,51 @@ namespace MyBGList.Models
     public class BoardGame
     {
        
-            [Key]
-            [Required]
-            public int Id { get; set; }
-            [Required]
-            [MaxLength(200)]
-            public string Name { get; set; } = null!;
-            [Required]
-            public int Year { get; set; }
+        [Key]
+        [Required]
+        public int Id { get; set; }
+        [Required]
+        [MaxLength(200)]
+        public string Name { get; set; } = null!;
+        [Required]
+        public int Year { get; set; }
 
-            [Required]
-            public int MaxPlayers { get; set; }
-            [Required]
-            public int MinPlayers { get; set; }
-            [Required]
-            public int PlayTime { get; set; }
-            [Required]
-            public int MaxAge { get; set; }
-            [Required]
-            public int UsersRated { get; set; }
+        [Required]
+        public int MaxPlayers { get; set; }
+        [Required]
+        public int MinPlayers { get; set; }
+        [Required]
+        public int PlayTime { get; set; }
+        [Required]
+        public int MaxAge { get; set; }
+        [Required]
+        public int UsersRated { get; set; }
 
-            [Required]
-            [Precision(4, 2)]
-            public decimal RatingAverage { get; set; }
-            [Required]
-            public int BGGRank { get; set; }
-            [Required]
-            [Precision(4, 2)] // số có tổng 4 digit trước và sau dấu phẩy, có 2 số sau dấu phẩy (4,2)
-            public decimal ComplexityAverage { get; set; }
-            [Required]
-            public int OwnedUsers { get; set; }
-            [Required]
-            public DateTime CreatedDate { get; set; }
-            [Required]
-            public DateTime LastModifiedDate { get; set; }
+        [Required]
+        [Precision(4, 2)]
+        public decimal RatingAverage { get; set; }
+        [Required]
+        public int BGGRank { get; set; }
+        [Required]
+        [Precision(4, 2)] // số có tổng 4 digit trước và sau dấu phẩy, có 2 số sau dấu phẩy (4,2)
+        public decimal ComplexityAverage { get; set; }
+        [Required]
+        public int OwnedUsers { get; set; }
+        [Required]
+        public DateTime CreatedDate { get; set; }
+        [Required]
+        public DateTime LastModifiedDate { get; set; }
+        [MaxLength(200)]
+        public string AlternateNames { get; set; } = null!;
+        [MaxLength(200)]
+        public string Designer { get; set; } = null!;
+        [Required]
+        public int Flags { get; set; }
         public ICollection<BoardGames_Domains>? BoardGames_Domains { get; set; }
         public ICollection<BoardGames_Mechanics>? BoardGames_Mechanics { get; set; }
+        //quan hệ Publishers 1-n BoardGames 
+        public Publisher? Publisher { get; set; }
+        public ICollection<BoardGames_Categories>? BoardGames_Categories { get; set; }
 
     }
 }

@@ -3,12 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBGList.Models
 {
-    [Table("Domains")]
-    public class Domain
+    [Table("Categories")]
+    public class Category
     {
-
-        [Required]
         [Key]
+        [Required]
         public int Id { get; set; }
         [Required]
         [MaxLength(200)]
@@ -16,12 +15,8 @@ namespace MyBGList.Models
         [Required]
         public DateTime CreatedDate { get; set; }
         [Required]
-        public DateTime LastModifiedDate { get; set; }
-        [MaxLength(200)]
-        public string Notes { get; set; } = null!;
-        [Required]
-        public int Flags { get; set; }
+        public DateTime LastModifiedTime { get; set; }
+        public ICollection<BoardGames_Categories>? BoardGames_Categories { get; set; }
 
-        public ICollection<BoardGames_Domains>? BoardGames_Domains { get; set; }
     }
 }

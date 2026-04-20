@@ -5,6 +5,7 @@ namespace MyBGList.Models
     public class ApplicationDbContext: DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt): base(opt) { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -41,6 +42,25 @@ namespace MyBGList.Models
                 .HasForeignKey(f => f.MechanicId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //khai bao composize key cho BoardGames_Categories
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasKey(key => new { key.BoardGameId, key.CategoryId });
+
+            //Khai bao moi quan he khoa ngoai va delete rule
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasOne(x => x.BoardGame)
+                .WithMany(y => y.BoardGames_Categories)
+                .HasForeignKey(f => f.BoardGameId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasOne(x => x.Category)
+                .WithMany(y => y.BoardGames_Categories)
+                .HasForeignKey(f => f.CategoryId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
         //Tạo các DbSet
         //DbSet đại diện cho 1 table còn các class mà ta đã tạo trước đó đại diện cho 1 dòng record
@@ -50,6 +70,7 @@ namespace MyBGList.Models
         public DbSet<Mechanic> Mechanics => Set<Mechanic>();
         public DbSet<BoardGames_Mechanics> BoardGames_Mechanics => Set<BoardGames_Mechanics>();
         public DbSet<BoardGames_Domains> BoardGames_Domains => Set<BoardGames_Domains>();
-
+        public DbSet<Publisher> Publishers => Set<Publisher>();
+        public DbSet<Category> Categories => Set<Category>();
     }
 }
