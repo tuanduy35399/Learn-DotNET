@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyBGList.DTO;
 using System.Xml.Linq;
-
+using MyBGList.Models;
 namespace MyBGList.Controllers
 {
     [Route("[controller]")] //endpoint là tên của Controller bỏ đi cụm Controller => /BoardGames
