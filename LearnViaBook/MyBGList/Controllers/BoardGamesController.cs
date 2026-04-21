@@ -9,10 +9,14 @@ namespace MyBGList.Controllers
     [ApiController]
     public class BoardGamesController : ControllerBase
     {
+        //Tạo instance của ApplicationDbContext để giao tiếp với database
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<BoardGamesController> _logger;
-        public BoardGamesController(ILogger<BoardGamesController> logger)
+
+        public BoardGamesController(ApplicationDbContext context, ILogger<BoardGamesController> logger)
         {
             _logger = logger;
+            _context = context;
         }
 
         //[HttpGet(Name = "GetBoardGames")] //đặt định danh route để sinh route tự động,

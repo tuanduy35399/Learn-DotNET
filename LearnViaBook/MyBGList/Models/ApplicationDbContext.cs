@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MyBGList.Controllers;
 
 namespace MyBGList.Models
 {
     public class ApplicationDbContext: DbContext
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt): base(opt) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
