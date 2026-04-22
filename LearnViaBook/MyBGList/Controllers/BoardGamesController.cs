@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBGList.DTO;
 using System.Xml.Linq;
 using MyBGList.Models;
+using Microsoft.EntityFrameworkCore;
 namespace MyBGList.Controllers
 {
     [Route("[controller]")] //endpoint là tên của Controller bỏ đi cụm Controller => /BoardGames
@@ -18,69 +19,15 @@ namespace MyBGList.Controllers
             _logger = logger;
             _context = context;
         }
-
-        //[HttpGet(Name = "GetBoardGames")] //đặt định danh route để sinh route tự động,
-        //khi route chính có thay đổi thì ko ảnh hưởng gì đến các route con
-        //là 1 cách để gọi thay vì viết đầy đủ ra /BoardGames/score ,...thì chỉ cần gọi 
-        //GetBoardGames
-        //public IEnumerable<BoardGame> Get()
-        //{
-        //    return new[] { //tạo mảng nặc danh 
-        //            new BoardGame() {
-        //            Id = 1,
-        //            Name = "Axis & Allies",
-        //            Year = 1981,
-        //            MaxPlayers=90,
-        //            MinPlayers=2,
-        //            },
-        //            new BoardGame() {
-        //            Id = 2,
-        //            Name = "Citadels",
-        //            Year = 2000,
-        //            MaxPlayers=90,
-        //            MinPlayers=2,
-        //            },
-        //            new BoardGame() {
-        //            Id = 3,
-        //            Name = "Terraforming Mars",
-        //            Year = 2016,
-        //            MaxPlayers=90,
-        //            MinPlayers=2,
-        //            }
-        //     };
-        //}
-        //[HttpGet("{id}", Name = "GetDetail")]
-        //public BoardGame GetDetail()
-        //{
-        //    return 
-        //}
-
         //Đây là REST API Chuẩn HATEOAS
         [HttpGet(Name = "GetBoardGames")]
-        public RestDTO<BoardGame[]> Get() 
+        public async Task<RestDTO<BoardGame[]>> Get() 
             {
+            var query = _context.BoardGames;
             return new RestDTO<BoardGame[]>() 
             {
-            Data = new BoardGame[] {
-            new BoardGame()
-                    {
-                        Id = 1,
-            Name = "Axis & Allies",
-            Year = 1981
-            },
-            new BoardGame()
-                    {
-                        Id = 2,
-            Name = "Citadels",
-            Year = 2000
-            },
-            new BoardGame()
-                    {
-                        Id = 3,
-            Name = "Terraforming Mars",
-            Year = 2016
-            }
-                },
+            //Data = new BoardGame[] { //Thay vì tạo 1 instance mới như vầy thì ta dùng Dependency Injection
+            Data= await query.ToArrayAsync(), 
             Links = new List<LinkDTO> { 
             new LinkDTO(
             Url.Action(null, "BoardGames", null, Request.Scheme)!,
