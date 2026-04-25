@@ -1,10 +1,12 @@
 ﻿
 using CsvHelper.Configuration.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyBGList.Models.Csv
 {
     public class BggRecord
     {
+        [Key]
         [Name("ID")]
         public int? ID { get; set; }
         [Name("Name")]
@@ -19,8 +21,8 @@ namespace MyBGList.Models.Csv
         public int? PlayTime { get; set; }
         [Name("Min Age")]
         public int? MinAge { get; set; }
-        [Name("User Rated")]
-        public int? UserRated { get; set; }
+        [Name("Users Rated")]
+        public int? UsersRated { get; set; }
         [Name("Rating Average")]
         public decimal? RatingAverage { get; set; }
         [Name("BGG Rank")]

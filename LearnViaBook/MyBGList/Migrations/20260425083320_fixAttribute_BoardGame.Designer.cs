@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBGList.Models;
 
@@ -11,9 +12,10 @@ using MyBGList.Models;
 namespace MyBGList.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260425083320_fixAttribute_BoardGame")]
+    partial class fixAttribute_BoardGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,15 +33,14 @@ namespace MyBGList.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AlternateNames")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("BGGRank")
-                        .IsRequired()
+                    b.Property<int>("BGGRank")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("ComplexityAverage")
-                        .IsRequired()
+                    b.Property<decimal>("ComplexityAverage")
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
@@ -47,25 +48,23 @@ namespace MyBGList.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Designer")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("Flags")
+                    b.Property<int>("Flags")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MaxPlayers")
-                        .IsRequired()
+                    b.Property<int>("MaxPlayers")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MinAge")
-                        .IsRequired()
+                    b.Property<int>("MinAge")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MinPlayers")
-                        .IsRequired()
+                    b.Property<int>("MinPlayers")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -73,28 +72,23 @@ namespace MyBGList.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("OwnedUsers")
-                        .IsRequired()
+                    b.Property<int>("OwnedUsers")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PlayTime")
-                        .IsRequired()
+                    b.Property<int>("PlayTime")
                         .HasColumnType("int");
 
                     b.Property<int?>("PublisherId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("RatingAverage")
-                        .IsRequired()
+                    b.Property<decimal>("RatingAverage")
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<int?>("UsersRated")
-                        .IsRequired()
+                    b.Property<int>("UsersRated")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Year")
-                        .IsRequired()
+                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -190,7 +184,7 @@ namespace MyBGList.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Flags")
+                    b.Property<int>("Flags")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastModifiedDate")
@@ -202,6 +196,7 @@ namespace MyBGList.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -221,7 +216,7 @@ namespace MyBGList.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Flags")
+                    b.Property<int>("Flags")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastModifiedDate")
@@ -233,6 +228,7 @@ namespace MyBGList.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

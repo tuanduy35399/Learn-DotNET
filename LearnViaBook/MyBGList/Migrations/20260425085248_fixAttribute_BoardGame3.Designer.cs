@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBGList.Models;
 
@@ -11,9 +12,10 @@ using MyBGList.Models;
 namespace MyBGList.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260425085248_fixAttribute_BoardGame3")]
+    partial class fixAttribute_BoardGame3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +192,7 @@ namespace MyBGList.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Flags")
+                    b.Property<int>("Flags")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastModifiedDate")
@@ -202,6 +204,7 @@ namespace MyBGList.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -221,7 +224,7 @@ namespace MyBGList.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Flags")
+                    b.Property<int>("Flags")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastModifiedDate")
@@ -233,6 +236,7 @@ namespace MyBGList.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

@@ -18,9 +18,9 @@ namespace MyBGList.Models
         [Required]
         public DateTime LastModifiedDate { get; set; }
         [MaxLength(200)]
-        public string Notes { get; set; } = null!;
-        [Required]
-        public int Flags { get; set; }
+        public string? Notes { get; set; } = null!;
+
+        public int? Flags { get; set; }
 
         public ICollection<BoardGames_Domains>? BoardGames_Domains { get; set; }
     }
